@@ -1,0 +1,176 @@
+:root {
+  font-family: 'Inter', system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: light;
+  color: #1e293b; /* Slate 800 */
+  background-color: #f8fafc; /* Slate 50 for background */
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  background-color: #f8fafc;
+}
+
+.highlight {
+  background-color: rgba(99, 102, 241, 0.2); 
+  color: #4f46e5;
+  border-radius: 4px;
+  padding: 0 2px;
+  font-weight: 600;
+}
+
+.layout-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 2rem;
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  gap: 2rem;
+}
+
+@media (max-width: 768px) {
+  .layout-container {
+    grid-template-columns: 1fr;
+  }
+}
+
+.facet-sidebar {
+  background-color: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+  padding: 1.5rem;
+  height: fit-content;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+}
+
+.results-area {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+/* AntD Tabs override for Results, Data Table, Add Candidate */
+.ant-tabs-nav::before {
+  border-bottom: 1px solid #e2e8f0 !important;
+}
+
+.ant-tabs-tab {
+  font-weight: 500;
+  color: #64748b !important;
+}
+
+.ant-tabs-tab-active .ant-tabs-tab-btn {
+  color: #4f46e5 !important; /* Indigo */
+}
+
+/* Sidebar Menu / Collapse */
+.sidebar-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 0;
+  border-bottom: 1px solid #f1f5f9;
+  cursor: pointer;
+  color: #0f172a;
+  font-weight: 500;
+}
+.sidebar-section:last-child {
+  border-bottom: none;
+}
+.sidebar-icon {
+  color: #3b82f6; /* Blue icon */
+  margin-right: 0.5rem;
+}
+
+/* Candidate Card Styles */
+.candidate-card {
+  border-radius: 16px !important;
+  border: none !important;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.03) !important;
+  margin-bottom: 1rem;
+  transition: all 0.2s ease;
+}
+
+.candidate-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(0,0,0,0.05) !important;
+}
+
+/* Background colors for cards */
+.card-bg-0 { background-color: #ffffff !important; }
+.card-bg-1 { background-color: #ffffff !important; }
+.card-bg-2 { background-color: #ffffff !important; }
+.card-bg-3 { background-color: #ffffff !important; }
+.card-bg-4 { background-color: #ffffff !important; }
+
+.avatar-circle {
+  width: 60px;
+  height: 60px;
+  background-color: #94a3b8;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  color: white;
+}
+
+.candidate-name {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #0f172a;
+  margin: 0 !important;
+}
+
+.candidate-role {
+  color: #64748b;
+  font-size: 0.9rem;
+  margin-bottom: 0.5rem !important;
+}
+
+.candidate-meta {
+  color: #64748b;
+  font-size: 0.85rem;
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  margin-top: 1rem;
+}
+
+.meta-item {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.status-tag {
+  font-weight: 700;
+  padding: 4px 12px;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  letter-spacing: 0.5px;
+}
+
+.status-interviewing { color: #3b82f6; background: rgba(59, 130, 246, 0.1); }
+.status-applied { color: #2563eb; background: rgba(37, 99, 235, 0.1); }
+.status-rejected { color: #dc2626; background: rgba(220, 38, 38, 0.1); }
+.status-offered { color: #16a34a; background: rgba(22, 163, 74, 0.1); }
+
+.skill-tag {
+  background-color: #e0e7ff !important;
+  color: #4f46e5 !important;
+  border: none !important;
+  border-radius: 12px !important;
+  padding: 2px 12px !important;
+  font-weight: 500 !important;
+  font-size: 0.8rem !important;
+}
