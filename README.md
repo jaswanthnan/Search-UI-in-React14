@@ -1,80 +1,73 @@
-# Recruitment CRM Dashboard
+# Talent Tracker - Search UI in React
 
-A modern, full-stack recruitment tracking dashboard built with React, Ant Design, Express, and MongoDB. This application allows recruiters to efficiently search, filter, manage, and export candidate data through an intuitive, light-themed user interface.
+A modern, professional Recruitment CRM Search Interface built with React, Ant Design, and Node.js. This project demonstrates a high-performance faceted search system with explicit action triggers and real-time highlighting.
 
 ## 🚀 Features
 
-* **Advanced Search & Filtering**: 
-  * Fast, debounced live search.
-  * Real-time keyword highlighting.
-  * Dynamic sidebar facets (Skills, Status, Roles, Locations) automatically generated from your database.
-* **Multiple Views**:
-  * **Results Tab**: Visual layout with detailed candidate cards, colorful avatars, and status badges.
-  * **Data Table Tab**: A dense, sortable data grid for power users.
-* **Full CRUD Functionality**: 
-  * Add new candidates via a clean, validated form.
-  * Edit existing candidates directly from the dashboard.
-  * Delete individual candidates.
-* **Bulk Actions**:
-  * Checkbox row selection in the Data Table.
-  * Bulk delete multiple candidates simultaneously.
-  * Export selected candidate data directly to a `.csv` file.
+- **Faceted Search**: Filter candidates by Skills, Status, Roles, and Locations.
+- **Explicit Search Trigger**: Avoids redundant API calls by applying filters and search terms only when the "Search" button is clicked or Enter is pressed.
+- **Live Highlight**: Automatically highlights matched search terms across Name, Role, Skills, and Status fields in the result cards.
+- **Responsive Design**: Premium aesthetics using Ant Design, optimized for all screen sizes.
+- **Full Stack Integration**: Communicates with a Node.js/Express backend powered by MongoDB.
+- **Dynamic Facet Counts**: Real-time display of candidate counts per filter category.
+- **Bulk Operations**: Support for data table view with bulk delete and CSV export.
 
 ## 🛠️ Technology Stack
 
-* **Frontend**: React (Vite), Ant Design (UI Library), vanilla CSS.
-* **Backend**: Node.js, Express.js.
-* **Database**: MongoDB (Local instance).
+- **Frontend**: React (Vite), Ant Design (antd), Axios, Lodash
+- **Backend**: Node.js, Express, MongoDB
+- **Styling**: Vanilla CSS with custom AntD overrides
 
-## 📂 Project Structure
+## 📋 Prerequisites
 
-```
-Search UI in React/
-├── src/
-│   ├── components/
-│   │   └── SearchPage.jsx   # Main application component containing tabs, tables, and logic
-│   ├── App.jsx              # App entry point, configures Ant Design theme
-│   ├── index.css            # Global UI styling and CRM theme definitions
-│   └── main.jsx
-├── server.js                # Express API Backend (GET, POST, PUT, DELETE)
-├── package.json
-└── README.md
-```
+- Node.js (v16+)
+- MongoDB (Running locally or via Atlas)
 
-## ⚙️ Setup Instructions
+## ⚙️ Installation & Setup
 
-### Prerequisites
-1. [Node.js](https://nodejs.org/) installed on your machine.
-2. [MongoDB](https://www.mongodb.com/try/download/community) installed and running locally on port `27017`.
-
-### 1. Database Setup
-The backend expects a database named `talent_db` and a collection named `candidates`.
-You can populate it using the provided `seed.js` script:
+### 1. Clone the repository
 ```bash
-node "../Elasticsearch/seed.js"
+git clone <repository-url>
+cd search-ui-react
 ```
 
-### 2. Start the Backend Server
-The Express server handles all API routes and communicates with MongoDB.
+### 2. Setup Backend
 ```bash
-# Navigate to the project root
-npm install express cors mongodb
+cd server
+npm install
+# Ensure your MongoDB connection string is correct in config/db.js
 node server.js
 ```
-The server will start on `http://localhost:5000`.
 
-### 3. Start the Frontend Application
-In a separate terminal window, start the React development server:
+### 3. Setup Frontend
 ```bash
+cd client
 npm install
 npm run dev
 ```
-The application will launch on `http://localhost:5173`.
 
-## 📡 API Endpoints
+The application will be available at `http://localhost:5173`.
 
-* `GET /api/data`: Fetch all candidate records.
-* `POST /api/data`: Add a new candidate.
-* `PUT /api/data/:id`: Update an existing candidate's information.
-* `DELETE /api/data/:id`: Delete a single candidate.
-* `POST /api/data/bulk-delete`: Delete multiple candidates by ID array.
+## 📂 Project Structure
+
+```text
+├── client/                 # React frontend
+│   ├── src/
+│   │   ├── pages/         # Page components (Candidates.jsx)
+│   │   ├── components/    # Reusable UI components
+│   │   └── index.css      # Global styles and design system
+├── server/                 # Express backend
+│   ├── routes/            # API endpoints
+│   ├── models/            # Database schemas
+│   └── server.js          # Entry point
+└── README.md
+```
+
+## 🔍 API Usage
+
+Search by name, role, or skills:
+`GET /api/data?name=aruna`
+
+## 📄 License
+
+MIT
