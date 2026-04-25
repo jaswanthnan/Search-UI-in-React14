@@ -453,3 +453,12 @@ body {
     padding: 1rem;
   }
 }
+
+.loading-state {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 400px;
+  background: white;
+  border-radius: 24px;
+}

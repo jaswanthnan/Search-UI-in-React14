@@ -1,17 +1,22 @@
 export const SKILLS = [
-  'Python', 'AWS', 'JavaScript', 'React', 'TypeScript', 'Node.js', 
-  'Docker', 'Figma', 'MongoDB', 'Java', 'Spring Boot', 'Kubernetes', 
-  'PostgreSQL', 'Express', 'MySQL', 'GraphQL', 'TensorFlow', 'Data Science'
+  'Node.js', 'React', 'MongoDB', 'JavaScript', 'TypeScript', 'AWS', 
+  'GraphQL', 'Python', 'Machine Learning', 'TensorFlow', 'Data Science',
+  'Java', 'Spring Boot', 'Kubernetes', 'Microservices', 'Express',
+  'PostgreSQL', 'DevOps', 'MySQL', 'Django', 'Software Developer',
+  'Backend Developer', 'Frontend Developer'
 ];
 
-export const STATUSES = ['Applied', 'Interviewing', 'Offered', 'Rejected', 'Hired'];
+export const STATUSES = ['APPLIED', 'INTERVIEWING', 'OFFERED', 'REJECTED', 'HIRED'];
 
 export const ROLES = [
-  'Backend Developer', 'Frontend Developer', 'Full Stack Developer', 
-  'Data Scientist', 'Software Engineer', 'DevOps Engineer'
+  'Full-stack developer ', 'Frontend developer', 
+  'Data scientist passionate about AI and machine learning applications',
+  'Backend engineer ', 'Junior developer',
+  'Java developer with strong backend fundamentals',
+  'Python enthusiast skilled in web development',
+  'Experienced JavaScript developer focused on React'
 ];
 
 export const LOCATIONS = [
-  'San Francisco, CA', 'Bangalore, India', 'London, UK', 
-  'Hyderabad', 'Chennai', 'Pune', 'Bengaluru', 'Chittoor'
+  'Bengaluru', 'Hyderabad', 'Chennai', 'Pune', 'Chittoor'
 ];

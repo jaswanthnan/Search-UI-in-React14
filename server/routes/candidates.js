@@ -8,7 +8,18 @@ const router = express.Router();
 router.get('/facets', async (req, res) => {
   try {
     const collection = await getCandidateCollection();
-    const { q, skills, status, role, location } = req.query;
+    const { q } = req.query;
+
+    const getParam = (name) => {
+      const val = req.query[name] || req.query[`${name}[]`];
+      if (!val) return null;
+      return Array.isArray(val) ? val : [val];
+    };
+
+    const skillsParams = getParam('skills');
+    const statusParams = getParam('status');
+    const roleParams = getParam('role');
+    const locationParams = getParam('location');
 
     // 1. Build Search Query for Results
     const query = {};
@@ -20,10 +31,14 @@ router.get('/facets', async (req, res) => {
       ];
     }
 
-    if (skills) query.skills = { $in: Array.isArray(skills) ? skills : [skills] };
-    if (status) query.status = { $in: Array.isArray(status) ? status : [status] };
-    if (role) query.about = { $in: Array.isArray(role) ? role : [role] };
-    if (location) query.location = { $in: Array.isArray(location) ? location : [location] };
+    if (skillsParams) query.skills = { $in: skillsParams };
+    if (statusParams) query.status = { $in: statusParams };
+    if (roleParams) query.about = { $in: roleParams };
+    if (locationParams) query.location = { $in: locationParams };
+
+    console.log('--- SEARCH REQUEST ---');
+    console.log('Raw Query Params:', JSON.stringify(req.query));
+    console.log('Generated MongoDB Query:', JSON.stringify(query));
 
     // 2. Fetch Results
     const data = await collection.find(query).toArray();
@@ -36,6 +51,7 @@ router.get('/facets', async (req, res) => {
       experience: `${item.experience} Years Exp.`,
       skills: item.skills || [],
       status: item.status || 'APPLIED',
+      likes: item.likes || 0,
       avatarIndex: index % 5
     }));
 
@@ -85,12 +101,9 @@ router.get('/facets', async (req, res) => {
   }
 });
 
-
-
-// Original base route for compatibility (optional, but good to keep or update)
+// Original base route for compatibility
 router.get('/', async (req, res) => {
-  // redirecting to search for simplicity
-  res.redirect(307, '/api/data/search');
+  res.redirect(307, '/api/data/facets');
 });
 
 router.post('/', async (req, res) => {
@@ -163,5 +176,19 @@ router.post('/bulk-delete', async (req, res) => {
   }
 });
 
-export default router;
+router.put('/:id/like', async (req, res) => {
+  try {
+    const collection = await getCandidateCollection();
+    const { id } = req.params;
+    const result = await collection.updateOne(
+      { _id: new ObjectId(id) },
+      { $inc: { likes: 1 } }
+    );
+    res.json(result);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Failed to like candidate' });
+  }
+});
 
+export default router;

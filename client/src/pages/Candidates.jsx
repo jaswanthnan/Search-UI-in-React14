@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useMemo, useCallback } from 'react';
-import { Select, Card, Typography, Tag, Spin, Tabs, Checkbox, Table, Form, Input, InputNumber, Button, message, Space, Popconfirm, Modal, Row, Col } from 'antd';
+import { Select, Card, Typography, Tag, Spin, Tabs, Checkbox, Table, Form, Input, InputNumber, Button, Space, Popconfirm, Modal, Row, Col, App } from 'antd';
 import axios from 'axios';
 import { 
   UserOutlined, 
@@ -14,7 +14,9 @@ import {
   EditOutlined,
   DeleteOutlined,
   DownOutlined,
-  SearchOutlined
+  SearchOutlined,
+  LikeOutlined,
+  LikeFilled
 } from '@ant-design/icons';
 import { SKILLS, STATUSES, ROLES, LOCATIONS } from '../constants';
 
@@ -103,6 +105,7 @@ export default function Candidates() {
   const [form] = Form.useForm();
   const [editForm] = Form.useForm();
   const [submitting, setSubmitting] = useState(false);
+  const { message } = App.useApp();
   
   const [isEditModalVisible, setIsEditModalVisible] = useState(false);
   const [editingCandidate, setEditingCandidate] = useState(null);
@@ -224,6 +227,18 @@ export default function Candidates() {
     }
   };
 
+  const handleLike = async (id) => {
+    try {
+      await axios.put(`http://localhost:5000/api/data/${id}/like`);
+      // Optimistic update
+      setData(prev => prev.map(item => 
+        item.id === id ? { ...item, likes: (item.likes || 0) + 1 } : item
+      ));
+    } catch (error) {
+      message.error('Failed to like');
+    }
+  };
+
   const onFinishAddCandidate = async (values) => {
     setSubmitting(true);
     try {
@@ -252,6 +267,12 @@ export default function Candidates() {
       dataIndex: 'status', 
       key: 'status',
       render: (status) => <span className={`status-tag status-${(status || 'applied').toLowerCase()}`}>{status}</span>
+    },
+    {
+      title: 'Likes',
+      dataIndex: 'likes',
+      key: 'likes',
+      render: (likes) => <Tag color="pink">{likes || 0}</Tag>
     },
     {
       title: 'Action',
@@ -426,6 +447,16 @@ export default function Candidates() {
                                   </Tag>
                                 ))}
                               </div>
+                            </div>
+                            
+                            <div className="like-section" onClick={() => handleLike(item.id)}>
+                              <Button 
+                                type="text" 
+                                icon={item.likes > 0 ? <LikeFilled style={{ color: '#e11d48' }} /> : <LikeOutlined />} 
+                                className={`like-button ${item.likes > 0 ? 'liked' : ''}`}
+                              >
+                                {item.likes || 0}
+                              </Button>
                             </div>
                           </div>
                         </Card>
