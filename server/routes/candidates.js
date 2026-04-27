@@ -51,7 +51,6 @@ router.get('/facets', async (req, res) => {
       experience: `${item.experience} Years Exp.`,
       skills: item.skills || [],
       status: item.status || 'APPLIED',
-      likes: item.likes || 0,
       avatarIndex: index % 5
     }));
 
@@ -173,21 +172,6 @@ router.post('/bulk-delete', async (req, res) => {
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: 'Failed to delete candidates' });
-  }
-});
-
-router.put('/:id/like', async (req, res) => {
-  try {
-    const collection = await getCandidateCollection();
-    const { id } = req.params;
-    const result = await collection.updateOne(
-      { _id: new ObjectId(id) },
-      { $inc: { likes: 1 } }
-    );
-    res.json(result);
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ error: 'Failed to like candidate' });
   }
 });
 

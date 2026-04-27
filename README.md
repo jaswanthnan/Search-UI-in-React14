@@ -63,10 +63,83 @@ The application will be available at `http://localhost:5173`.
 └── README.md
 ```
 
-## 🔍 API Usage
+## 🔍 API Documentation
 
-Search by name, role, or skills:
-`GET /api/data?name=aruna`
+The backend server runs on `http://localhost:5000` by default. All data endpoints are prefixed with `/api/data`.
+
+### 1. Search and Facets
+Fetches candidates based on search terms and filters, and returns count-based facets for all categories.
+
+**Endpoint:** `GET /api/data/facets`
+
+**Query Parameters:**
+- `q`: Search keyword (name, role, or skills)
+- `skills[]`: Array of skills to filter by
+- `status[]`: Array of statuses to filter by
+- `location[]`: Array of locations to filter by
+
+**Example:**
+```bash
+curl "http://localhost:5000/api/data/facets?q=React&skills\[\]=Node.js&status\[\]=APPLIED"
+```
+
+### 2. Add New Candidate
+Creates a new candidate record in the database.
+
+**Endpoint:** `POST /api/data`
+
+**Example:**
+```bash
+curl -X POST http://localhost:5000/api/data \
+-H "Content-Type: application/json" \
+-d '{
+  "name": "Jane Doe",
+  "role": "Frontend Developer",
+  "location": "Mumbai",
+  "experience": 3,
+  "skills": ["React", "JavaScript", "CSS"],
+  "status": "APPLIED"
+}'
+```
+
+### 3. Update Candidate
+Updates an existing candidate by their ID.
+
+**Endpoint:** `PUT /api/data/:id`
+
+**Example:**
+```bash
+curl -X PUT http://localhost:5000/api/data/65d1234567890abcdef \
+-H "Content-Type: application/json" \
+-d '{
+  "name": "Jane Smith",
+  "status": "INTERVIEWING"
+}'
+```
+
+### 4. Delete Candidate
+Removes a single candidate by their ID.
+
+**Endpoint:** `DELETE /api/data/:id`
+
+**Example:**
+```bash
+curl -X DELETE http://localhost:5000/api/data/65d1234567890abcdef
+```
+
+### 5. Bulk Delete
+Deletes multiple candidates at once.
+
+**Endpoint:** `POST /api/data/bulk-delete`
+
+**Example:**
+```bash
+curl -X POST http://localhost:5000/api/data/bulk-delete \
+-H "Content-Type: application/json" \
+-d '{
+  "ids": ["id1", "id2", "id3"]
+}'
+```
 
 ## 📄 License
 
